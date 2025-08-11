@@ -1,149 +1,111 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fahd ♥ — نموذج الحجز</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<title>مطعم الفهد</title>
+<style>
     body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: #f2f2f5;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        text-align: center;
+        margin: 0;
+        padding: 0;
     }
     .container {
-      max-width: 420px;
-      width: 100%;
+        width: 90%;
+        max-width: 400px;
+        margin: auto;
     }
-    img.banner {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      display: block;
+    .welcome {
+        background-color: #8000ff;
+        color: white;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
     }
-    .card {
-      background: #7a2ce0;
-      color: white;
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    .sub-welcome {
+        background-color: #ffe6f7;
+        color: #8000ff;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 10px;
+        margin-top: 5px;
     }
-    .note-box {
-      background: #f6e9dd;
-      color: #2b2b2b;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 14px;
+    img {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 10px;
     }
-    .form-row { margin-bottom: 14px; }
+    .box {
+        background-color: #8000ff;
+        border-radius: 15px;
+        padding: 15px;
+        margin-top: 10px;
+        color: white;
+    }
     select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-      background: #f6e9dd;
-      outline: none;
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
     }
-    .btn-info {
-      background: #f6e9dd;
-      color: #111;
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: none;
+    .result {
+        background-color: #ffe6f7;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 10px;
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
     }
-    .description {
-      background: #f6e9dd;
-      color: #222;
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-top: 14px;
-    }
-  </style>
+</style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://cdn.imgpile.com/f/cFDgKTf_xl.jpg" alt="صورة ترحيبية لفهد" class="banner" />
-    <div class="card">
-      <div class="note-box">حدد الصف + المكان = الميعاد</div>
-      <div class="form-row">
-        <select id="grade">
-          <option value="">-- اختر الصف --</option>
-          <option value="الاول الثانوي">الاول الثانوي</option>
-          <option value="الثاني الثانوي">الثاني الثانوي</option>
-          <option value="الثالث الثانوي">الثالث الثانوي</option>
+
+<div class="container">
+    <div class="welcome">مطعم الفهد يرحب بكم</div>
+    <div class="sub-welcome">نورتونا 😍</div>
+
+    <img src="https://cdn.imgpile.com/f/cFDgKTf_xl.jpg" alt="صورة">
+    
+    <div class="box">
+        <label>حدد الصنف = السعر</label>
+        <select id="product" onchange="showPrice()">
+            <option value="">-- اختر الصنف --</option>
+            <option value="10">طماطم</option>
+            <option value="15">خيار</option>
+            <option value="5">باذنجان</option>
+            <option value="10">فلفل</option>
+            <option value="5">شطة</option>
         </select>
-      </div>
-      <div class="form-row">
-        <select id="place">
-          <option value="">-- اختر المكان --</option>
-          <option value="قطور">قطور</option>
-          <option value="ابو جندى">ابو جندى</option>
-          <option value="محله منوف">محله منوف</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <div class="btn-info" id="timeInfo"></div>
-      </div>
-      <div class="form-row">
-        <div class="btn-info" id="startDate"></div>
-      </div>
     </div>
-    <div class="description">
-      فهد يرحب بكم 💜 نتشرف بانضمامك لدولتنا العظيمة، نجتهد دوما لأجل أن تفخروا بنا 💜 صلّوا على النبي الحبيب 💜
+
+    <div id="priceBox" class="result" style="display:none;">
+        السعر: <span id="price"></span> جنيه
     </div>
-  </div>
+</div>
 
-  <script>
-    const grade = document.getElementById('grade');
-    const place = document.getElementById('place');
-    const timeInfo = document.getElementById('timeInfo');
-    const startDate = document.getElementById('startDate');
+<script>
+function showPrice() {
+    let select = document.getElementById("product");
+    let price = select.value;
+    let priceBox = document.getElementById("priceBox");
+    let priceText = document.getElementById("price");
 
-    const schedule = {
-      'الاول الثانوي': {
-        'قطور': { time: 'الأحد والثلاثاء الساعة 3 مساءً', start: 'البداية: الأحد 17/8' },
-        'ابو جندى': { time: 'الاثنين والخميس الساعة 4 مساءً', start: 'البداية: الاثنين 18/8' },
-        'محله منوف': { time: 'الأربعاء والجمعة الساعة 2 مساءً', start: 'البداية: الأربعاء 20/8' }
-      },
-      'الثاني الثانوي': {
-        'قطور': { time: 'الأحد والأربعاء الساعة 1 مساءً', start: 'البداية: الأحد 17/8' },
-        'ابو جندى': { time: 'الاثنين والخميس الساعة 5 مساءً', start: 'البداية: الاثنين 18/8' },
-        'محله منوف': { time: 'الأربعاء والجمعة الساعة 4 مساءً', start: 'البداية: الأربعاء 20/8' }
-      },
-      'الثالث الثانوي': {
-        'قطور': { time: 'الأحد والثلاثاء الساعة 12 مساءً', start: 'البداية: الأحد 17/8' },
-        'ابو جندى': { time: 'الاثنين والخميس الساعة 1 مساءً', start: 'البداية: الاثنين 18/8' },
-        'محله منوف': { time: 'الأربعاء والجمعة الساعة 3 مساءً', start: 'البداية: الأربعاء 20/8' }
-      }
-    };
-
-    function updateInfo() {
-      const g = grade.value;
-      const p = place.value;
-      if (g && p && schedule[g] && schedule[g][p]) {
-        timeInfo.textContent = schedule[g][p].time;
-        startDate.textContent = schedule[g][p].start;
-        timeInfo.style.display = 'block';
-        startDate.style.display = 'block';
-      } else {
-        timeInfo.style.display = 'none';
-        startDate.style.display = 'none';
-      }
+    if (price) {
+        priceText.textContent = price;
+        priceBox.style.display = "block";
+    } else {
+        priceBox.style.display = "none";
     }
+}
+</script>
 
-    grade.addEventListener('change', updateInfo);
-    place.addEventListener('change', updateInfo);
-  </script>
 </body>
 </html>
