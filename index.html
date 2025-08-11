@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fahd ♥ — نموذج الحجز</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: #f2f2f5;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 420px;
+      width: 100%;
+    }
+    img.banner {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .card {
+      background: #7a2ce0;
+      color: white;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .note-box {
+      background: #f6e9dd;
+      color: #2b2b2b;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .form-row { margin-bottom: 14px; }
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      background: #f6e9dd;
+      outline: none;
+    }
+    .btn-info {
+      background: #f6e9dd;
+      color: #111;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .description {
+      background: #f6e9dd;
+      color: #222;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://cdn.imgpile.com/f/cFDgKTf_xl.jpg" alt="صورة ترحيبية لفهد" class="banner" />
+    <div class="card">
+      <div class="note-box">حدد الصف + المكان = الميعاد</div>
+      <div class="form-row">
+        <select id="grade">
+          <option value="">-- اختر الصف --</option>
+          <option value="الاول الثانوي">الاول الثانوي</option>
+          <option value="الثاني الثانوي">الثاني الثانوي</option>
+          <option value="الثالث الثانوي">الثالث الثانوي</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <select id="place">
+          <option value="">-- اختر المكان --</option>
+          <option value="قطور">قطور</option>
+          <option value="ابو جندى">ابو جندى</option>
+          <option value="محله منوف">محله منوف</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="btn-info" id="timeInfo"></div>
+      </div>
+      <div class="form-row">
+        <div class="btn-info" id="startDate"></div>
+      </div>
+    </div>
+    <div class="description">
+      فهد يرحب بكم 💜 نتشرف بانضمامك لدولتنا العظيمة، نجتهد دوما لأجل أن تفخروا بنا 💜 صلّوا على النبي الحبيب 💜
+    </div>
+  </div>
+
+  <script>
+    const grade = document.getElementById('grade');
+    const place = document.getElementById('place');
+    const timeInfo = document.getElementById('timeInfo');
+    const startDate = document.getElementById('startDate');
+
+    const schedule = {
+      'الاول الثانوي': {
+        'قطور': { time: 'الأحد والثلاثاء الساعة 3 مساءً', start: 'البداية: الأحد 17/8' },
+        'ابو جندى': { time: 'الاثنين والخميس الساعة 4 مساءً', start: 'البداية: الاثنين 18/8' },
+        'محله منوف': { time: 'الأربعاء والجمعة الساعة 2 مساءً', start: 'البداية: الأربعاء 20/8' }
+      },
+      'الثاني الثانوي': {
+        'قطور': { time: 'الأحد والأربعاء الساعة 1 مساءً', start: 'البداية: الأحد 17/8' },
+        'ابو جندى': { time: 'الاثنين والخميس الساعة 5 مساءً', start: 'البداية: الاثنين 18/8' },
+        'محله منوف': { time: 'الأربعاء والجمعة الساعة 4 مساءً', start: 'البداية: الأربعاء 20/8' }
+      },
+      'الثالث الثانوي': {
+        'قطور': { time: 'الأحد والثلاثاء الساعة 12 مساءً', start: 'البداية: الأحد 17/8' },
+        'ابو جندى': { time: 'الاثنين والخميس الساعة 1 مساءً', start: 'البداية: الاثنين 18/8' },
+        'محله منوف': { time: 'الأربعاء والجمعة الساعة 3 مساءً', start: 'البداية: الأربعاء 20/8' }
+      }
+    };
+
+    function updateInfo() {
+      const g = grade.value;
+      const p = place.value;
+      if (g && p && schedule[g] && schedule[g][p]) {
+        timeInfo.textContent = schedule[g][p].time;
+        startDate.textContent = schedule[g][p].start;
+        timeInfo.style.display = 'block';
+        startDate.style.display = 'block';
+      } else {
+        timeInfo.style.display = 'none';
+        startDate.style.display = 'none';
+      }
+    }
+
+    grade.addEventListener('change', updateInfo);
+    place.addEventListener('change', updateInfo);
+  </script>
+</body>
+</html>
